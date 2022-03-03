@@ -40,16 +40,20 @@ void setup()
   attachInterrupt(0,flujo1,RISING);
   Serial.println("Empezando");
   delay(2000);//Tiempo prudencial para el escudo inicie sesión de red con tu operador
-  bandera= true; 
+  bandera= true;
+  Serial.println("paso el setup"); 
 } 
 
 
 
 void loop(){
+  Serial.println("Entro en el loop");
   Caudal();
-  Serial.print("Paso el caudal");  
-  comandosAT();//Llama a la función comandosAT  
+  Serial.println("Paso el caudal");  
+  comandosAT();//Llama a la función comandosAT
+  Serial.println("Paso los comando At");  
   mostrarDatosSeriales();
+  Serial.println("LLego al final del loop");
 }
 
 
@@ -111,12 +115,9 @@ Serial.write(MySerial.read());//Forward what MySerial received to Software MySer
 
 void Caudal()
 {
-  if (bandera==true)
-  {
-  frecuencia=ObtenerFrecuencia(); //obtenemos la Frecuencia de los pulsos en Hz
-  caudal_L_m=frecuencia/factor_conversion; //calculamos el caudal en L/m
-  bandera= false;
-  }
+        frecuencia= ObtenerFrecuencia(); 
+        caudal_L_m=frecuencia/factor_conversion; //calculamos el caudal en L/m
+  
 }
 
 //Apaga el sim y arduino por 20 minutos
